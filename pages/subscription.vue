@@ -6,13 +6,11 @@ const selectedSubscription = ref(null)
 const toast = useToast()
 
 const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'site', label: 'Site' },
-  { key: 'account', label: 'Account' },
-  { key: 'price', label: 'Price' },
-  { key: 'nextdate', label: 'Next Date' },
-  { key: 'note', label: 'Note' },
-  { key: 'actions', label: 'Actions' }
+  { key: 'name', label: '名稱' },
+  { key: 'nextdate', label: '下次付款日期' },
+  { key: 'price', label: '價格' },
+  { key: 'site', label: '網站' },
+  { key: 'actions', label: '操作' }
 ]
 
 const { data: subscriptions, refresh } = await useAsyncData('subscriptions', async () => {
@@ -90,12 +88,10 @@ async function deleteSubscription(id) {
           <h3 class="text-lg font-bold">Add New Subscription</h3>
         </template>
         <UForm :state="newSubscription" @submit.prevent="addSubscription">
-          <UFormGroup label="Name" name="name"><UInput v-model="newSubscription.name" /></UFormGroup>
-          <UFormGroup label="Site" name="site"><UInput v-model="newSubscription.site" /></UFormGroup>
-          <UFormGroup label="Account" name="account"><UInput v-model="newSubscription.account" /></UFormGroup>
-          <UFormGroup label="Price" name="price"><UInput v-model.number="newSubscription.price" type="number" /></UFormGroup>
-          <UFormGroup label="Next Date" name="nextdate"><UInput v-model="newSubscription.nextdate" type="date" /></UFormGroup>
-          <UFormGroup label="Note" name="note"><UInput v-model="newSubscription.note" /></UFormGroup>
+          <UFormGroup label="名稱" name="name"><UInput v-model="newSubscription.name" /></UFormGroup>
+          <UFormGroup label="下次付款日期" name="nextdate"><UInput v-model="newSubscription.nextdate" type="date" /></UFormGroup>
+          <UFormGroup label="價格" name="price"><UInput v-model.number="newSubscription.price" type="number" /></UFormGroup>
+          <UFormGroup label="網站" name="site"><UInput v-model="newSubscription.site" /></UFormGroup>
           <UButton type="submit">Save</UButton>
         </UForm>
       </UCard>
@@ -107,12 +103,10 @@ async function deleteSubscription(id) {
           <h3 class="text-lg font-bold">Edit Subscription</h3>
         </template>
         <UForm v-if="selectedSubscription" :state="selectedSubscription" @submit.prevent="updateSubscription">
-          <UFormGroup label="Name" name="name"><UInput v-model="selectedSubscription.name" /></UFormGroup>
-          <UFormGroup label="Site" name="site"><UInput v-model="selectedSubscription.site" /></UFormGroup>
-          <UFormGroup label="Account" name="account"><UInput v-model="selectedSubscription.account" /></UFormGroup>
-          <UFormGroup label="Price" name="price"><UInput v-model.number="selectedSubscription.price" type="number" /></UFormGroup>
-          <UFormGroup label="Next Date" name="nextdate"><UInput v-model="selectedSubscription.nextdate" type="date" /></UFormGroup>
-          <UFormGroup label="Note" name="note"><UInput v-model="selectedSubscription.note" /></UFormGroup>
+          <UFormGroup label="名稱" name="name"><UInput v-model="selectedSubscription.name" /></UFormGroup>
+          <UFormGroup label="下次付款日期" name="nextdate"><UInput v-model="selectedSubscription.nextdate" type="date" /></UFormGroup>
+          <UFormGroup label="價格" name="price"><UInput v-model.number="selectedSubscription.price" type="number" /></UFormGroup>
+          <UFormGroup label="網站" name="site"><UInput v-model="selectedSubscription.site" /></UFormGroup>
           <UButton type="submit">Update</UButton>
         </UForm>
       </UCard>

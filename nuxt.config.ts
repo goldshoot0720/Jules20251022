@@ -4,6 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui', '@nuxtjs/supabase'],
   supabase: {
+    url: 'https://lgztvgybalhvppkfpwdc.supabase.co',
+    key: 'placeholder_key',
     redirectOptions: {
       login: '/login',
       callback: '/confirm',

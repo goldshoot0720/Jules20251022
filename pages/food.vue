@@ -6,12 +6,11 @@ const selectedFood = ref(null)
 const toast = useToast()
 
 const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'amount', label: 'Amount' },
-  { key: 'price', label: 'Price' },
-  { key: 'shop', label: 'Shop' },
-  { key: 'todate', label: 'Date' },
-  { key: 'actions', label: 'Actions' }
+  { key: 'name', label: '名稱' },
+  { key: 'todate', label: '有效期限' },
+  { key: 'amount', label: '數量' },
+  { key: 'photo', label: '圖片' },
+  { key: 'actions', label: '操作' }
 ]
 
 const { data: foods, refresh } = await useAsyncData('foods', async () => {
@@ -76,6 +75,9 @@ async function deleteFood(id) {
     </template>
 
     <UTable :rows="foods" :columns="columns">
+      <template #photo-data="{ row }">
+        <img :src="row.photo" class="w-16 h-16 object-cover" />
+      </template>
       <template #actions-data="{ row }">
         <UButton @click="openEditModal(row)" color="orange" variant="ghost" icon="i-heroicons-pencil-square" />
         <UButton @click="deleteFood(row.id)" color="red" variant="ghost" icon="i-heroicons-trash" />
@@ -88,11 +90,10 @@ async function deleteFood(id) {
           <h3 class="text-lg font-bold">Add New Food</h3>
         </template>
         <UForm :state="newFood" @submit.prevent="addFood">
-          <UFormGroup label="Name" name="name"><UInput v-model="newFood.name" /></UFormGroup>
-          <UFormGroup label="Amount" name="amount"><UInput v-model.number="newFood.amount" type="number" /></UFormGroup>
-          <UFormGroup label="Price" name="price"><UInput v-model.number="newFood.price" type="number" /></UFormGroup>
-          <UFormGroup label="Shop" name="shop"><UInput v-model="newFood.shop" /></UFormGroup>
-          <UFormGroup label="Date" name="todate"><UInput v-model="newFood.todate" type="date" /></UFormGroup>
+          <UFormGroup label="名稱" name="name"><UInput v-model="newFood.name" /></UFormGroup>
+          <UFormGroup label="有效期限" name="todate"><UInput v-model="newFood.todate" type="date" /></UFormGroup>
+          <UFormGroup label="數量" name="amount"><UInput v-model.number="newFood.amount" type="number" /></UFormGroup>
+          <UFormGroup label="圖片" name="photo"><UInput v-model="newFood.photo" /></UFormGroup>
           <UButton type="submit">Save</UButton>
         </UForm>
       </UCard>
@@ -104,11 +105,10 @@ async function deleteFood(id) {
           <h3 class="text-lg font-bold">Edit Food</h3>
         </template>
         <UForm v-if="selectedFood" :state="selectedFood" @submit.prevent="updateFood">
-          <UFormGroup label="Name" name="name"><UInput v-model="selectedFood.name" /></UFormGroup>
-          <UFormGroup label="Amount" name="amount"><UInput v-model.number="selectedFood.amount" type="number" /></UFormGroup>
-          <UFormGrup label="Price" name="price"><UInput v-model.number="selectedFood.price" type="number" /></UFormGrup>
-          <UFormGroup label="Shop" name="shop"><UInput v-model="selectedFood.shop" /></UFormGroup>
-          <UFormGroup label="Date" name="todate"><UInput v-model="selectedFood.todate" type="date" /></UFormGroup>
+          <UFormGroup label="名稱" name="name"><UInput v-model="selectedFood.name" /></UFormGroup>
+          <UFormGroup label="有效期限" name="todate"><UInput v-model="selectedFood.todate" type="date" /></UFormGroup>
+          <UFormGroup label="數量" name="amount"><UInput v-model.number="selectedFood.amount" type="number" /></UFormGroup>
+          <UFormGroup label="圖片" name="photo"><UInput v-model="selectedFood.photo" /></UFormGroup>
           <UButton type="submit">Update</UButton>
         </UForm>
       </UCard>
