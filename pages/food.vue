@@ -54,7 +54,6 @@ async function updateFood() {
 }
 
 async function deleteFood(id) {
-  if (!confirm('Are you sure you want to delete this item?')) return
   const { data, error } = await supabase.from('food').delete().eq('id', id)
   if (error) {
     toast.add({ title: 'Error', description: error.message, color: 'red' })
@@ -80,7 +79,17 @@ async function deleteFood(id) {
       </template>
       <template #actions-data="{ row }">
         <UButton @click="openEditModal(row)" color="orange" variant="ghost" icon="i-heroicons-pencil-square" />
-        <UButton @click="deleteFood(row.id)" color="red" variant="ghost" icon="i-heroicons-trash" />
+        <UPopover>
+          <UButton color="red" variant="ghost" icon="i-heroicons-trash" />
+          <template #panel>
+            <div class="p-4">
+              <p>Are you sure you want to delete this item?</p>
+              <div class="flex justify-end mt-4">
+                <UButton @click="deleteFood(row.id)" color="red">Delete</UButton>
+              </div>
+            </div>
+          </template>
+        </UPopover>
       </template>
     </UTable>
 

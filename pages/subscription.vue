@@ -55,7 +55,6 @@ async function updateSubscription() {
 }
 
 async function deleteSubscription(id) {
-  if (!confirm('Are you sure you want to delete this subscription?')) return
   const { data, error } = await supabase.from('subscription').delete().eq('id', id)
   if (error) {
     toast.add({ title: 'Error', description: error.message, color: 'red' })
@@ -78,7 +77,17 @@ async function deleteSubscription(id) {
     <UTable :rows="subscriptions" :columns="columns">
       <template #actions-data="{ row }">
         <UButton @click="openEditModal(row)" color="orange" variant="ghost" icon="i-heroicons-pencil-square" />
-        <UButton @click="deleteSubscription(row.id)" color="red" variant="ghost" icon="i-heroicons-trash" />
+        <UPopover>
+          <UButton color="red" variant="ghost" icon="i-heroicons-trash" />
+          <template #panel>
+            <div class="p-4">
+              <p>Are you sure you want to delete this subscription?</p>
+              <div class="flex justify-end mt-4">
+                <UButton @click="deleteSubscription(row.id)" color="red">Delete</UButton>
+              </div>
+            </div>
+          </template>
+        </UPopover>
       </template>
     </UTable>
 

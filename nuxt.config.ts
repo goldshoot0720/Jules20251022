@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxtjs/supabase'],
   supabase: {
     url: 'https://lgztvgybalhvppkfpwdc.supabase.co',
-    key: 'placeholder_key',
+    key: process.env.SUPABASE_KEY,
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
